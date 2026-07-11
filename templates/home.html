@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>BookMyShow Clone — Feature Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 900px; margin: 30px auto; color: #222; }
+    .filters { display: flex; gap: 24px; margin-bottom: 24px; padding: 12px; background: #f4f4f4; border-radius: 8px; }
+    .filters label { display: block; font-size: 14px; margin: 2px 0; }
+    .movie-card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+    .badge { background: #e91e63; color: white; border-radius: 4px; padding: 2px 8px; font-size: 12px; }
+    a.api-link { display: inline-block; margin: 4px 8px 4px 0; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <h1>🎬 BookMyShow Clone — Feature Demo</h1>
+  <p>This page proves Task 1 (filtering) is wired end-to-end. The JSON endpoints for
+     tasks 3–6 are linked at the bottom — there's no separate page per feature since
+     they're APIs, not screens.</p>
+
+  <form class="filters" method="get">
+    <div>
+      <strong>Genre</strong>
+      {% for g in genres %}
+        <label><input type="checkbox" name="genre" value="{{ g.id }}"
+          {% if g.id in selected_genres %}checked{% endif %}> {{ g.name }}
+          {% for fc in filter_counts.genres %}{% if fc.id == g.id %}({{ fc.count }}){% endif %}{% endfor %}
+        </label>
+      {% empty %}<p>No genres yet — run the seed command (see README).</p>{% endfor %}
+    </div>
+    <div>
+      <strong>Language</strong>
+      {% for l in languages %}
+        <label><input type="checkbox" name="language" value="{{ l.id }}"
+          {% if l.id in selected_languages %}checked{% endif %}> {{ l.name }}
+          {% for fc in filter_counts.languages %}{% if fc.id == l.id %}({{ fc.count }}){% endif %}{% endfor %}
+        </label>
+      {% endfor %}
+    </div>
+    <div><button type="submit">Apply filters</button></div>
+  </form>
+
+  <p>{{ total_count }} movie(s) match.</p>
+
+  {% for m in movies %}
+    <div class="movie-card">
+      <strong>{{ m.title }}</strong> <span class="badge">{{ m.release_date }}</span>
+      <br><a class="api-link" href="/api/movies/{{ m.id }}/">View trailer/detail JSON →</a>
+    </div>
+  {% empty %}
+    <p>No movies match these filters, or the database is empty — see "First-time setup" below.</p>
+  {% endfor %}
+
+  <hr>
+  <h3>Other feature endpoints (JSON — open directly, or hit with curl/Postman)</h3>
+  <a class="api-link" href="/api/admin/analytics/revenue/">Admin: revenue</a>
+  <a class="api-link" href="/api/admin/analytics/popular-movies/">Admin: popular movies</a>
+  <a class="api-link" href="/api/admin/analytics/busiest-theaters/">Admin: busiest theaters</a>
+  <a class="api-link" href="/api/admin/analytics/peak-hours/">Admin: peak hours</a>
+  <a class="api-link" href="/api/admin/analytics/cancellation-rate/">Admin: cancellation rate</a>
+  <a class="api-link" href="/admin/">Django admin panel</a>
+  <p style="color:#888; font-size:13px;">Admin analytics links require you to be logged in as a staff user
+     (create one with <code>python manage.py createsuperuser</code>, then log in at <code>/admin/</code> first).</p>
+</body>
+</html>

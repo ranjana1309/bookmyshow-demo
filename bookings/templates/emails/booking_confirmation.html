@@ -1,0 +1,17 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<body style="font-family: Arial, sans-serif; color:#222; max-width:600px; margin:0 auto;">
+  <h2>Booking Confirmed 🎬</h2>
+  <p>Hi {{ user_name }},</p>
+  <p>Your tickets for <strong>{{ movie_title }}</strong> are confirmed.</p>
+  <table style="width:100%; border-collapse:collapse; margin:16px 0;">
+    <tr><td style="padding:6px 0;"><strong>Theater</strong></td><td>{{ theater_name }}</td></tr>
+    <tr><td style="padding:6px 0;"><strong>Show time</strong></td><td>{{ show_time }}</td></tr>
+    <tr><td style="padding:6px 0;"><strong>Seats</strong></td><td>{{ seat_numbers }}</td></tr>
+    <tr><td style="padding:6px 0;"><strong>Amount paid</strong></td><td>₹{{ total_amount }}</td></tr>
+    <tr><td style="padding:6px 0;"><strong>Payment reference</strong></td><td>{{ payment_id }}</td></tr>
+  </table>
+  <p>Enjoy the show!</p>
+</body>
+</html>

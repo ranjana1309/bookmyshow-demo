@@ -1,0 +1,13 @@
+Booking Confirmed
+
+Hi {{ user_name }},
+
+Your tickets for {{ movie_title }} are confirmed.
+
+Theater: {{ theater_name }}
+Show time: {{ show_time }}
+Seats: {{ seat_numbers }}
+Amount paid: Rs. {{ total_amount }}
+Payment reference: {{ payment_id }}
+
+Enjoy the show!

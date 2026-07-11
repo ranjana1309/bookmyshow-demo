@@ -1,0 +1,7 @@
+Django>=5.0,<6.0
+celery>=5.3
+redis>=5.0
+django-redis>=5.4
+stripe>=9.0
+gunicorn>=23.0,<24.0
+whitenoise>=6.8,<7.0
