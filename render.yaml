@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: "pip install -r requirements.txt && python manage.py migrate --noinput && python manage.py seed_demo_data && python manage.py collectstatic --noinput"
-    startCommand: "gunicorn config.wsgi --bind 0.0.0.0:$PORT"
+    startCommand: "sh -lc \"python manage.py migrate --noinput && python manage.py seed_demo_data && gunicorn config.wsgi --bind 0.0.0.0:$PORT\""
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.7
