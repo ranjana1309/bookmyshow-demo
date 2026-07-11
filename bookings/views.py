@@ -18,6 +18,7 @@ from django.db.models import (
 )
 from django.db.models.functions import TruncDay, ExtractHour
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -151,7 +152,7 @@ def extract_youtube_id(url):
 
 
 def movie_detail(request, movie_id):
-    movie = Movie.objects.get(id=movie_id, is_active=True)
+    movie = get_object_or_404(Movie, id=movie_id, is_active=True)
     video_id = extract_youtube_id(movie.trailer_url)
     trailer_context = (
         {"trailer_available": True, "embed_url": f"https://www.youtube-nocookie.com/embed/{video_id}"}
